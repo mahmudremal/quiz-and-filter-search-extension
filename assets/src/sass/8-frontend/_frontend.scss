@@ -1,0 +1,215 @@
+/* Including parts. */
+@import "navmenu";
+// @import "elementor";
+@import "icons";
+@import "map";
+
+$primaryColor: #FFCF02;
+$primaryColorb4: #ffd102b4;
+$primaryColor1f: #FFCF021f;
+$primaryColor0d: #ffcf020d;
+
+/* General Settings */
+.input-group {
+  span[id^="basic-editopen-"] {border-radius: 0 5px 5px 0 !important;}
+  &.input-group .input-group-text[id^=basic-pre-addons] {
+    @include mq($until: 500px) {
+      display: none;
+    }
+    @include mq($until: 550px) {
+      max-width: 180px;
+      overflow: hidden;
+    }
+  }
+}
+
+.awesomplete {
+  ul[role=listbox] {
+    list-style: none;
+    margin: auto;
+    padding: 5px;
+    border-radius: 3px;
+    box-shadow: 2px 2px 2px #ddd;
+  }
+}
+.fwp-swal2-popup {
+  .swal2-html-container {
+    margin: 0;
+  }
+  .dynamic_popup {
+    .header_image {
+      height: 120px;
+      background-size: cover;
+      transition: all 0.7s ease-in-out;
+    }
+    .spinner-material {
+      width: 56px;
+      height: 56px;
+      margin: auto;
+      margin-top: 50px;
+      border-radius: 50%;
+      margin-bottom: 50px;
+      border: 9px solid #474bff;
+      animation: spinner-bulqg1 0.8s infinite linear alternate, spinner-oaa3wk 1.6s infinite linear;
+    }
+    .popup_body {
+      display: block;
+      text-align: unset;
+      padding: 2rem 1rem;
+      .popup_step {
+        transform: translateX(100%);
+        transition: display .3s ease, transform .7s ease;
+        &.popup2left {
+          transform: translateX(-100%);
+        }
+        &.step_visible {
+          transform: unset;
+        }
+        fieldset {
+          .form-wrap {
+            .form-control {
+              margin: unset;
+              position: relative;
+              border-radius: unset;
+              &:not(:last-child) {
+                border-bottom: none;
+              }
+              input {
+                &[type="checkbox"] {
+                  &+span {
+                    margin-left: 10px;
+                  }
+                }
+                &[type="radio"] {
+                  visibility: hidden;
+                  & + span {
+                    &::before {
+                      content: "";
+                      width: 20px;
+                      height: 20px;
+                      left: 15px;
+                      border: 0;
+                      top: 50%;
+                      position: absolute;
+                      border-radius: 50%;
+                      transform: translateY(-50%);
+                      background-color: #e6e7ec;
+                    }
+                  }
+                  &:checked + span {
+                    &::before {
+                      background-color: rgb(76 64 237);
+                    }
+                    &::after {
+                      content: '';
+                      width: 8px;
+                      height: 8px;
+                      left: 21px;
+                      top: 50%;
+                      right: 4px;
+                      position: absolute;
+                      border-radius: 50%;
+                      transform: translateY(-50%);
+                      background-color: #fff;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      fieldset {
+        display: block;
+        text-align: left;
+        input {
+          &[type="radio"], &[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+          }
+        }
+        .form-flexs {
+          display: flex;
+          flex-wrap: nowrap;
+          align-items: center;
+          input[type="radio"] {
+            &+span {
+              width: calc(100% - 20px);
+            }
+          }
+        }
+      }
+
+    }
+    .popup_foot {
+      display: flex;
+      flex-wrap: wrap;
+      padding-left: 20px;
+      padding-right: 20px;
+      justify-content: space-between;
+      .button {
+        gap: 10px;
+        display: flex;
+        align-items: center;
+        .invisible {
+          visibility: hidden;
+        }
+        .spinner-circular-tube {
+          width: 26px;
+          height: 26px;
+          display: none;
+          border-radius: 50%;
+          border: 11.2px #474bff double;
+          border-left-style: solid;
+          animation: spinner-aib1d7 0.75s infinite linear;
+        }
+        &:disabled .spinner-circular-tube {
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+@keyframes spinner-bulqg1 {
+  0% {
+     clip-path: polygon(50% 50%, 0 0, 50% 0%, 50% 0%, 50% 0%, 50% 0%, 50% 0%);
+  }
+  12.5% {
+     clip-path: polygon(50% 50%, 0 0, 50% 0%, 100% 0%, 100% 0%, 100% 0%, 100% 0%);
+  }
+  25% {
+     clip-path: polygon(50% 50%, 0 0, 50% 0%, 100% 0%, 100% 100%, 100% 100%, 100% 100%);
+  }
+  50% {
+     clip-path: polygon(50% 50%, 0 0, 50% 0%, 100% 0%, 100% 100%, 50% 100%, 0% 100%);
+  }
+  62.5% {
+     clip-path: polygon(50% 50%, 100% 0, 100% 0%, 100% 0%, 100% 100%, 50% 100%, 0% 100%);
+  }
+  75% {
+     clip-path: polygon(50% 50%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 50% 100%, 0% 100%);
+  }
+  100% {
+     clip-path: polygon(50% 50%, 50% 100%, 50% 100%, 50% 100%, 50% 100%, 50% 100%, 0% 100%);
+  }
+}
+@keyframes spinner-oaa3wk {
+  0% {
+     transform: scaleY(1) rotate(0deg);
+  }
+  49.99% {
+     transform: scaleY(1) rotate(135deg);
+  }
+  50% {
+     transform: scaleY(-1) rotate(0deg);
+  }
+  100% {
+     transform: scaleY(-1) rotate(-135deg);
+  }
+}
+@keyframes spinner-aib1d7 {
+  to {
+    transform: rotate(360deg);
+  }
+}
