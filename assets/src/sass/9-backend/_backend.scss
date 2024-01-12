@@ -328,6 +328,15 @@
     top: unset !important;
   }
 }
+.checkbox-reverse {
+  gap: 10px;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-end;
+  flex-direction: row-reverse;
+}
+
 
 @keyframes spinner-bulqg1 {
   0% {

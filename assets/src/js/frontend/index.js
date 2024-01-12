@@ -34,6 +34,7 @@ import Toastify from 'toastify-js';
 			this.init_autocomplete_category();
 			this.init_autocomplete_location();
 			this.init_search_form();
+			this.init_menu_item();
 		}
 		init_toast() {
 			const thisClass = this;
@@ -88,6 +89,7 @@ import Toastify from 'toastify-js';
 						// progressSteps: [1, 2, 3],
 						// currentProgressStep: 1,
 						// progressStepsDistance: '40px',
+						showCloseButton: false,
 						html: html.innerHTML
 					});
 					thisClass.prompts.lastJson = thisClass.lastJson;
@@ -109,11 +111,9 @@ import Toastify from 'toastify-js';
 				}
 			});
 			document.body.addEventListener('popup_submitting_done', async (event) => {
-				// thisClass.lastJson;
 				var submit = document.querySelector('.popup_foot .button[data-react="continue"]');
-				if(submit) {
-                    submit.removeAttribute('disabled');
-                }
+				if(submit) {submit.removeAttribute('disabled');}
+				if(thisClass.lastJson.redirectedTo) {location.href = thisClass.lastJson.redirectedTo;}
 			});
 		}
 		sendToServer( data ) {
@@ -253,6 +253,7 @@ import Toastify from 'toastify-js';
 			const thisClass = this;
 			const input = document.querySelector('#keyword_search');
 			if( ! input || ! new Date().getMonth()==4 ) {return;}
+			input.value = 'Appliance';
 			const awesomplete = new Awesomplete(input, {
 				minChars: 1,
 				maxItems: 5,
@@ -261,9 +262,11 @@ import Toastify from 'toastify-js';
 			});
 			input.addEventListener('input', function() {
 				const query = input.value;
-		
+				let keyword = document.querySelector('#location_search');
+				keyword = (keyword)?keyword.value:'';
+
 				// Make the AJAX request to fetch suggestions
-				fetch(thisClass.ajaxUrl + '?action=futurewordpress/project/quizandfiltersearch/action/get_autocomplete&term=category&query=' + encodeURIComponent(query))
+				fetch(thisClass.ajaxUrl + '?action=futurewordpress/project/quizandfiltersearch/action/get_autocomplete&term=category&query='+encodeURIComponent(query)+'&keyword='+encodeURIComponent(keyword))
 				  .then(response => response.json())
 				  .then(data => {
 					awesomplete.list = (data?.data??data).map((row)=>row?.name??row); // Update the suggestions list
@@ -275,8 +278,10 @@ import Toastify from 'toastify-js';
 		}
 		init_autocomplete_location() {
 			const thisClass = this;
+			
 			const input = document.querySelector('#location_search');
 			if( ! input || ! new Date().getMonth()==4 ) {return;}
+			input.value = 'Vancouver, Washington';
 			const awesomplete = new Awesomplete(input, {
 				minChars: 1,
 				maxItems: 5,
@@ -285,9 +290,11 @@ import Toastify from 'toastify-js';
 			});
 			input.addEventListener('input', function() {
 				const query = input.value;
-		
+				let keyword = document.querySelector('#keyword_search');
+				keyword = (keyword)?keyword.value:'';
+
 				// Make the AJAX request to fetch suggestions
-				fetch(thisClass.ajaxUrl + '?action=futurewordpress/project/quizandfiltersearch/action/get_autocomplete&term=location&query=' + encodeURIComponent(query))
+				fetch(thisClass.ajaxUrl + '?action=futurewordpress/project/quizandfiltersearch/action/get_autocomplete&term=location&query='+encodeURIComponent(query)+'&keyword='+encodeURIComponent(keyword))
 				  .then(response => response.json())
 				  .then(data => {
 					awesomplete.list = (data?.data??data).map((row)=>row?.name??row); // Update the suggestions list
@@ -299,7 +306,6 @@ import Toastify from 'toastify-js';
 		}
 		init_search_form() {
 			const thisClass = this;var form, html;
-			console.log( 'init_search_form' );
 			form = document.querySelector('#truelysell_core-search-form');
 			if( ! form || ! new Date().getMonth()==4 ) {return;}
 			form.addEventListener('submit', (event) => {
@@ -314,10 +320,12 @@ import Toastify from 'toastify-js';
 					showConfirmButton: false,
 					showCancelButton: false,
 					showCloseButton: true,
+					allowOutsideClick: false,
+					allowEscapeKey: false,
 					// confirmButtonText: 'Generate',
-					cancelButtonText: 'Close',
-					confirmButtonColor: '#3085d6',
-					cancelButtonColor: '#d33',
+					// cancelButtonText: 'Close',
+					// confirmButtonColor: '#3085d6',
+					// cancelButtonColor: '#d33',
 					customClass: {
 						popup: 'fwp-swal2-popup'
 					},
@@ -358,6 +366,20 @@ import Toastify from 'toastify-js';
 					}
 				})
 			});
+		}
+		init_menu_item() {
+			var trg, li, a, i;
+			trg = document.querySelector('.settings-menu ul li:nth-child(5)');
+			if(trg) {
+				li = document.createElement('li');
+				a = document.createElement('a');
+				a.href = (fwpSiteConfig?.siteUrl) + 'leeds';
+				i = document.createElement('i');
+				i.classList.add('feather-users');
+				a.appendChild(i);a.innerHTML += 'Leads';
+				li.appendChild(a);
+				trg.parentElement.insertBefore(li, trg);
+			}
 		}
 	}
 	new FutureWordPress_Frontend();

@@ -123,6 +123,7 @@ class Assets {
 			'ajax_nonce' 		=> wp_create_nonce( 'futurewordpress/project/quizandfiltersearch/verify/nonce' ),
 			'is_admin' 			=> is_admin(),
 			'buildPath'  		=> QUIZ_AND_FILTER_SEARCH_BUILD_URI,
+			'siteUrl'  			=> site_url('/'),
 			'videoClips'  		=> ( function_exists( 'WC' ) && WC()->session !== null ) ? (array) WC()->session->get( 'uploaded_files_to_archive' ) : [],
 			'i18n'					=> [
 				'pls_wait'			=> __( 'Please wait...', 'quiz-and-filter-search-domain' ),

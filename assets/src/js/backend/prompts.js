@@ -64,6 +64,7 @@ const PROMPTS = {
         div = document.createElement('div');node = document.createElement('form');
         node.action=thisClass.ajaxUrl;node.type='post';node.classList.add('popup_body');
         fields.forEach((field, i) => {
+            field.required = field?.required??true;
             step = PROMPTS.do_field(field, {});
             step.dataset.step = i;
             node.appendChild(step);
@@ -243,6 +244,20 @@ const PROMPTS = {
             label = document.createElement('label');label.classList.add('form-label');
             label.setAttribute('for', input.id);
             label.innerHTML = thisClass.i18n?.popup_subheading??'PopUp Sub Heading';
+            
+            fieldset.appendChild(label);fieldset.appendChild(input);div.appendChild(fieldset);
+        }
+        PROMPTS.lastfieldID++; // field.required
+        if(true) {
+            PROMPTS.lastfieldID++;
+            fieldset = document.createElement('div');fieldset.classList.add('form-group', 'checkbox-reverse');
+            input = document.createElement('input');input.classList.add('form-control');
+            input.name = 'required';input.type = 'checkbox';
+            input.id = 'thefield'+PROMPTS.lastfieldID;input.setAttribute('value', data?.required??'1');
+            input.placeholder=thisClass.i18n?.popup_subheading_text??'PopUp Sub-heading text';
+            label = document.createElement('label');label.classList.add('form-label');
+            label.setAttribute('for', input.id);
+            label.innerHTML = thisClass.i18n?.required??'Required';
             
             fieldset.appendChild(label);fieldset.appendChild(input);div.appendChild(fieldset);
         }

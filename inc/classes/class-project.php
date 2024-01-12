@@ -4,19 +4,26 @@
  *
  * @package QuizAndFilterSearch
  */
-
 namespace QUIZ_AND_FILTER_SEARCH\inc;
-
 use QUIZ_AND_FILTER_SEARCH\inc\Traits\Singleton;
 
 class Project {
 	use Singleton;
-
 	protected function __construct() {
-
 		// Load class.
 		Assets::get_instance();
 		Ajax::get_instance();
+		Log::get_instance();
+		Post_Types::get_instance();
+		Taxonomies::get_instance();
+
+		
+		// $roles = get_option('wp_user_roles', []);
+		// unset($roles['employer']);
+		// update_option('wp_user_roles', $roles);
+		// print_r($roles);wp_die();
+
+
 		// Helpers::get_instance();
 		// Dashboard::get_instance();
 		// Roles::get_instance();
@@ -29,7 +36,6 @@ class Project {
 		// Stripe::get_instance();
 		// Admin::get_instance();
 		// Bulks::get_instance();
-
 		// Blocks::get_instance();
 		// Option::get_instance();
 		// Menus::get_instance();
@@ -37,27 +43,23 @@ class Project {
 		// Meta_Boxes::get_instance();
 		// Update::get_instance();
 		// Rewrite::get_instance();
-		// Esign::get_instance();
 		// Shortcode::get_instance();
-		// PostTypes::get_instance();
-		Taxonomies::get_instance();
 		// Events::get_instance();
 		// Ftp::get_instance();
 		// Gpt3::get_instance();
-
 		// $this->setup_hooks();
 	}
-
 	protected function setup_hooks() {
 		add_filter( 'body_class', [ $this, 'body_class' ], 10, 1 );
 		add_action( 'init', [ $this, 'init' ], 1, 0 );
-
 		
 		// $this->hack_mode();
-
 		
 		register_activation_hook( QUIZ_AND_FILTER_SEARCH__FILE__, [ $this, 'register_activation_hook' ] );
 		register_deactivation_hook( QUIZ_AND_FILTER_SEARCH__FILE__, [ $this, 'register_deactivation_hook' ] );
+
+
+		
 	}
 	public function body_class( $classes ) {
 		$classes = (array) $classes;
