@@ -49,10 +49,10 @@ defined( 'QUIZ_AND_FILTER_SEARCH_OPTIONS' ) || define( 'QUIZ_AND_FILTER_SEARCH_O
 require_once QUIZ_AND_FILTER_SEARCH_DIR_PATH . '/inc/helpers/autoloader.php';
 // require_once QUIZ_AND_FILTER_SEARCH_DIR_PATH . '/inc/helpers/template-tags.php';
 
-if( ! function_exists( 'futurewordpressprojectscratch_get_theme_instance' ) ) {
-	function futurewordpressprojectscratch_get_theme_instance() {\QUIZ_AND_FILTER_SEARCH\inc\Project::get_instance();}
+if( ! function_exists( 'quizandfilter_get_instance' ) ) {
+	function quizandfilter_get_instance() {\QUIZ_AND_FILTER_SEARCH\inc\Project::get_instance();}
 }
-futurewordpressprojectscratch_get_theme_instance();
+quizandfilter_get_instance();
 
 
 
